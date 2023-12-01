@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import "./Counter.css";
 
-export const Counter = () => {
+export const Counter = ({ by }) => {
+  const [count, setCount] = useState(0);
+
   const incrementCounterFunction = () => {
     console.log("increment clicked");
-    setCount(count + 1);
+    setCount(count + parseInt(by, 10));
     console.log(count);
   };
   const decrementCounterFunction = () => {
     console.log("increment clicked");
-    setCount(count - 1);
+    setCount(count - by);
     console.log(count);
   };
-  const [count, setCount] = useState(0);
+
+  console.log("by = ", parseInt(by, 10));
+
   return (
     <div className="Counter">
       <span className="count">{count}</span>
@@ -21,13 +25,13 @@ export const Counter = () => {
           className="counterButton"
           onClick={() => incrementCounterFunction()}
         >
-          +1
+          +{by}
         </button>
         <button
           className="counterButton"
           onClick={() => decrementCounterFunction()}
         >
-          -1
+          -{by}
         </button>
       </div>
     </div>
