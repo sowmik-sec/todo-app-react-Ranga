@@ -11,3 +11,16 @@ button {
   width: 350px;
   margin: 0 auto;
 }
+
+.successMessage {
+  color: rgb(23, 109, 23);
+}
+.errorMessage {
+  color: red;
+}
+.d-block {
+  display: block;
+}
+.d-hidden {
+  display: none;
+}

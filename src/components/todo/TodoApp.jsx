@@ -14,8 +14,30 @@ export const TodoApp = () => {
 const LoginComponent = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loggedIn, setLoggedIn] = useState(null);
+  const handleSubmit = () => {
+    if (username === "sowmik" && password === "dummy") {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  };
   return (
     <div className="Login">
+      <div
+        className={`successMessage ${
+          loggedIn === true ? "d-block" : "d-hidden"
+        }`}
+      >
+        Authenticated Successfully
+      </div>
+      <div
+        className={`errorMessage ${
+          loggedIn === false ? "d-block" : "d-hidden"
+        }`}
+      >
+        Authentication failed
+      </div>
       <div className="LoginForm">
         <div className="field">
           <label>User Name: </label>
@@ -36,7 +58,7 @@ const LoginComponent = () => {
           />
         </div>
         <div>
-          <button type="button" name="login">
+          <button type="button" name="login" onClick={handleSubmit}>
             Login
           </button>
         </div>
