@@ -12,15 +12,18 @@ import "./TodoApp.css";
 export const TodoApp = () => {
   return (
     <div className="TodoApp">
+      <HeaderComponent />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginComponent />} />
           <Route path="/login" element={<LoginComponent />} />
           <Route path="/welcome/:username" element={<WelcomeComponent />} />
           <Route path="/todos" element={<ListToDosComponent />} />
+          <Route path="/logout" element={<LogoutComponent />} />
           <Route path="*" element={<ErrorComponent />} />
         </Routes>
       </BrowserRouter>
+      <FooterComponent />
     </div>
   );
 };
@@ -157,6 +160,32 @@ const ListToDosComponent = () => {
           </tbody>
         </table>
       </div>
+    </div>
+  );
+};
+
+const HeaderComponent = () => {
+  return (
+    <div className="HeaderComponent">
+      Header <hr />
+    </div>
+  );
+};
+
+const FooterComponent = () => {
+  return (
+    <div className="FooterComponent">
+      <hr />
+      Footer
+    </div>
+  );
+};
+
+const LogoutComponent = () => {
+  return (
+    <div className="LogoutComponent">
+      <h1>You are logged out!</h1>
+      <div>Thank you for using our App</div>
     </div>
   );
 };
