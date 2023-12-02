@@ -5,6 +5,7 @@ import {
   Route,
   useNavigate,
   useParams,
+  Link,
 } from "react-router-dom";
 import "./TodoApp.css";
 
@@ -88,7 +89,14 @@ const LoginComponent = () => {
 const WelcomeComponent = () => {
   const { username } = useParams();
   console.log(username);
-  return <div className="Welcome">Welcome {username}</div>;
+  return (
+    <div className="WelcomeComponent">
+      <h1>Welcome {username}</h1>
+      <p>
+        Manage your <Link to="/todos">Todos</Link>
+      </p>
+    </div>
+  );
 };
 
 const ErrorComponent = () => {
@@ -106,10 +114,21 @@ const ErrorComponent = () => {
 };
 
 const ListToDosComponent = () => {
+  const today = new Date();
+  const targetDate = new Date(
+    today.getFullYear() + 1,
+    today.getMonth(),
+    today.getDay()
+  );
   const toDos = [
-    { id: 1, description: "Learn AWS" },
-    { id: 2, description: "Learn Full stack development" },
-    { id: 3, description: "Learn DevOps" },
+    { id: 1, description: "Learn AWS", done: false, targetDate: targetDate },
+    {
+      id: 2,
+      description: "Learn Full stack development",
+      done: false,
+      targetDate: targetDate,
+    },
+    { id: 3, description: "Learn DevOps", done: false, targetDate: targetDate },
   ];
   return (
     <div className="ListToDosComponent">
@@ -120,6 +139,8 @@ const ListToDosComponent = () => {
             <tr>
               <td>Id</td>
               <td>Description</td>
+              <td>Completed</td>
+              <td>Target Date</td>
             </tr>
           </thead>
           <tbody>
@@ -128,6 +149,8 @@ const ListToDosComponent = () => {
                 <tr key={todo.id}>
                   <td>{todo.id}</td>
                   <td>{todo.description}</td>
+                  <td>{todo.done.toString()}</td>
+                  <td>{todo.targetDate.toDateString()}</td>
                 </tr>
               );
             })}
