@@ -134,10 +134,10 @@ const ListToDosComponent = () => {
     { id: 3, description: "Learn DevOps", done: false, targetDate: targetDate },
   ];
   return (
-    <div className="ListToDosComponent">
+    <div className="container">
       <h1>Things You want To Do!</h1>
       <div>
-        <table>
+        <table className="table">
           <thead>
             <tr>
               <td>Id</td>
