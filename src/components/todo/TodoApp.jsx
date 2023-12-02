@@ -1,12 +1,17 @@
 import React, { useState } from "react";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import "./TodoApp.css";
 
 export const TodoApp = () => {
   return (
     <div className="TodoApp">
-      Todo Management Application
-      <LoginComponent />
-      {/* <WelcomeComponent /> */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LoginComponent />} />
+          <Route path="/login" element={<LoginComponent />} />
+          <Route path="/welcome" element={<WelcomeComponent />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };
@@ -15,9 +20,13 @@ const LoginComponent = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(null);
+
+  const navigate = useNavigate();
+
   const handleSubmit = () => {
     if (username === "sowmik" && password === "dummy") {
       setLoggedIn(true);
+      navigate("/welcome");
     } else {
       setLoggedIn(false);
     }
