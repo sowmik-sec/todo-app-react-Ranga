@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./TodoApp.css";
 import { LogoutComponent } from "./LogoutComponent";
 import { HeaderComponent } from "./HeaderComponent";
@@ -7,7 +7,15 @@ import { ListToDosComponent } from "./ListToDosComponent";
 import { ErrorComponent } from "./ErrorComponent";
 import { WelcomeComponent } from "./WelcomeComponent";
 import { LoginComponent } from "./LoginComponent";
-import AuthProvider from "./security/AuthContext";
+import AuthProvider, { useAuth } from "./security/AuthContext";
+
+const AuthenticatedRoute = ({ children }) => {
+  const authContext = useAuth();
+  if (authContext.isAuthenticated) {
+    return children;
+  }
+  return <Navigate to="/" />;
+};
 
 export const TodoApp = () => {
   return (
@@ -18,9 +26,30 @@ export const TodoApp = () => {
           <Routes>
             <Route path="/" element={<LoginComponent />} />
             <Route path="/login" element={<LoginComponent />} />
-            <Route path="/welcome/:username" element={<WelcomeComponent />} />
-            <Route path="/todos" element={<ListToDosComponent />} />
-            <Route path="/logout" element={<LogoutComponent />} />
+            <Route
+              path="/welcome/:username"
+              element={
+                <AuthenticatedRoute>
+                  <WelcomeComponent />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/todos"
+              element={
+                <AuthenticatedRoute>
+                  <ListToDosComponent />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/logout"
+              element={
+                <AuthenticatedRoute>
+                  <LogoutComponent />
+                </AuthenticatedRoute>
+              }
+            />
             <Route path="*" element={<ErrorComponent />} />
           </Routes>
         </BrowserRouter>
