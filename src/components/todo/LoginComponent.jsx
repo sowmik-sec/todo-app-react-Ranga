@@ -12,25 +12,16 @@ export const LoginComponent = () => {
   const authContext = useAuth();
 
   const handleSubmit = () => {
-    if (username === "sowmik" && password === "dummy") {
+    if (authContext.login(username, password)) {
       setLoggedIn(true);
-      authContext.setAuthenticated(true);
       navigate(`/welcome/${username}`);
     } else {
-      authContext.setAuthenticated(false);
       setLoggedIn(false);
     }
   };
   return (
     <div className="Login">
       <h1>Login</h1>
-      <div
-        className={`successMessage ${
-          loggedIn === true ? "d-block" : "d-hidden"
-        }`}
-      >
-        Authenticated Successfully
-      </div>
       <div
         className={`errorMessage ${
           loggedIn === false ? "d-block" : "d-hidden"

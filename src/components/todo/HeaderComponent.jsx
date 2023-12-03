@@ -5,7 +5,7 @@ export const HeaderComponent = () => {
   const authContext = useAuth();
   const isAuthenticated = authContext.isAuthenticated;
   const logout = () => {
-    authContext.setAuthenticated(false);
+    authContext.logout();
   };
   return (
     <header className="border-bottom border-light border-5 mb-5 p-2">
