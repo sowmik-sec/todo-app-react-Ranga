@@ -9,9 +9,15 @@ export const useAuth = () => useContext(AuthContext);
 const AuthProvider = ({ children }) => {
   //3: put some state in the context
   const [number, setNumber] = useState(506);
-  setInterval(() => setNumber(number + 1), 3000);
+  const [isAuthenticated, setAuthenticated] = useState(false);
+  //   setInterval(() => setNumber(number + 1), 3000);
+
+  //   const valueToBeShared = { number, isAuthenticated, setAuthenticated };
+
   return (
-    <AuthContext.Provider value={{ number }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ number, isAuthenticated, setAuthenticated }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

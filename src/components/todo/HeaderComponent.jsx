@@ -3,7 +3,10 @@ import { useAuth } from "./security/AuthContext";
 
 export const HeaderComponent = () => {
   const authContext = useAuth();
-  console.log("here it goes ", authContext);
+  const isAuthenticated = authContext.isAuthenticated;
+  const logout = () => {
+    authContext.setAuthenticated(false);
+  };
   return (
     <header className="border-bottom border-light border-5 mb-5 p-2">
       <div className="container">
@@ -17,29 +20,37 @@ export const HeaderComponent = () => {
             </a>
             <div className="collapse navbar-collapse">
               <ul className="navbar-nav">
-                <li className="nav-item fs-5">
-                  <Link className="nav-link" to="/welcome/sowmik">
-                    Home
-                  </Link>
-                </li>
-                <li className="nav-item fs-5">
-                  <Link className="nav-link" to="/todos">
-                    Todos
-                  </Link>
-                </li>
+                {isAuthenticated && (
+                  <li className="nav-item fs-5">
+                    <Link className="nav-link" to="/welcome/sowmik">
+                      Home
+                    </Link>
+                  </li>
+                )}
+                {isAuthenticated && (
+                  <li className="nav-item fs-5">
+                    <Link className="nav-link" to="/todos">
+                      Todos
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
             <ul className="navbar-nav">
-              <li className="nav-item fs-5">
-                <Link className="nav-link" to="/login">
-                  Login
-                </Link>
-              </li>
-              <li className="nav-item fs-5">
-                <Link className="nav-link" to="/logout">
-                  Logout
-                </Link>
-              </li>
+              {!isAuthenticated && (
+                <li className="nav-item fs-5">
+                  <Link className="nav-link" to="/login">
+                    Login
+                  </Link>
+                </li>
+              )}
+              {isAuthenticated && (
+                <li className="nav-item fs-5">
+                  <Link className="nav-link" to="/logout" onClick={logout}>
+                    Logout
+                  </Link>
+                </li>
+              )}
             </ul>
           </nav>
         </div>
