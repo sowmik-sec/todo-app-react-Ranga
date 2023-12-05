@@ -3,6 +3,7 @@ import {
   deleteTodoApi,
   retrieveAllToDosForUsernameApi,
 } from "./api/TodoApiService";
+import { useAuth } from "./security/AuthContext";
 
 export const ListToDosComponent = () => {
   // const today = new Date();
@@ -14,11 +15,12 @@ export const ListToDosComponent = () => {
 
   const [toDos, setToDos] = useState([]);
   const [message, setMessage] = useState(null);
+  const { username } = useAuth();
 
   useEffect(() => refreshToDos(), []);
 
   const refreshToDos = () => {
-    retrieveAllToDosForUsernameApi("sowmik")
+    retrieveAllToDosForUsernameApi(username)
       .then((response) => {
         // console.log(response.data);
         setToDos(response.data);
