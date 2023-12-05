@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { retrieveHelloWorldBean } from "./api/HelloWroldApiSrvice";
 export const WelcomeComponent = () => {
   const { username } = useParams();
   const [message, setMessage] = useState(null);
@@ -11,8 +12,7 @@ export const WelcomeComponent = () => {
     //   .catch((error) => errorResponse(error))
     //   .finally(() => console.log("cleanup"));
 
-    axios
-      .get(`http://localhost:8080/hello-world-bean`)
+    retrieveHelloWorldBean()
       .then((response) => successfulResponse(response))
       .catch((error) => errorResponse(error))
       .finally(() => console.log("cleanup"));
