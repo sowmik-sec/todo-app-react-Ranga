@@ -1,24 +1,17 @@
-import axios from "axios";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { retrieveHelloWorldBean } from "./api/HelloWroldApiSrvice";
+import { retrieveHelloWorldPathVariable } from "./api/HelloWroldApiSrvice";
 export const WelcomeComponent = () => {
   const { username } = useParams();
   const [message, setMessage] = useState(null);
   const callHelloWorldRestApi = () => {
-    // axios
-    //   .get(`http://localhost:8080/hello-world`)
-    //   .then((response) => successfulResponse(response))
-    //   .catch((error) => errorResponse(error))
-    //   .finally(() => console.log("cleanup"));
-
-    retrieveHelloWorldBean()
+    retrieveHelloWorldPathVariable(username)
       .then((response) => successfulResponse(response))
       .catch((error) => errorResponse(error))
       .finally(() => console.log("cleanup"));
   };
   const successfulResponse = (response) => {
-    // console.log(response.data.message);
+    console.log(response.data);
     // setMessage(response.data);
     setMessage(response.data.message);
   };
