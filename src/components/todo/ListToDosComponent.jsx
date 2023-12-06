@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   deleteTodoApi,
   retrieveAllToDosForUsernameApi,
+  updateTodoApi,
 } from "./api/TodoApiService";
 import { useAuth } from "./security/AuthContext";
 
@@ -16,6 +18,7 @@ export const ListToDosComponent = () => {
   const [toDos, setToDos] = useState([]);
   const [message, setMessage] = useState(null);
   const { username } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => refreshToDos(), []);
 
@@ -41,6 +44,9 @@ export const ListToDosComponent = () => {
       .finally(console.log("cleanup"));
   };
 
+  const handleUpdateTodo = (id) => {
+    navigate(`/todo/${id}`);
+  };
   // const toDos = [
   //   { id: 1, description: "Learn AWS", done: false, targetDate: targetDate },
   //   {
@@ -62,6 +68,7 @@ export const ListToDosComponent = () => {
               <th>Description</th>
               <th>Completed</th>
               <th>Target Date</th>
+              <th>Update</th>
               <th>Delete</th>
             </tr>
           </thead>
@@ -72,6 +79,14 @@ export const ListToDosComponent = () => {
                   <td>{todo.description}</td>
                   <td>{todo.done.toString()}</td>
                   <td>{todo.targetDate}</td>
+                  <td>
+                    <button
+                      className="btn btn-success"
+                      onClick={() => handleUpdateTodo(todo.id)}
+                    >
+                      Update
+                    </button>
+                  </td>
                   <td>
                     <button
                       className="btn btn-warning"
