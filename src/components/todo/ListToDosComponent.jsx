@@ -47,6 +47,11 @@ export const ListToDosComponent = () => {
   const handleUpdateTodo = (id) => {
     navigate(`/todo/${id}`);
   };
+
+  const handleAddNewTodo = () => {
+    navigate(`/todo/-1`);
+  };
+
   // const toDos = [
   //   { id: 1, description: "Learn AWS", done: false, targetDate: targetDate },
   //   {
@@ -100,6 +105,9 @@ export const ListToDosComponent = () => {
             })}
           </tbody>
         </table>
+      </div>
+      <div className="btn btn-success m-5" onClick={handleAddNewTodo}>
+        Add New Todo
       </div>
     </div>
   );
