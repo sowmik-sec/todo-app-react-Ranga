@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { executeBasicAuthenticationService } from "../api/HelloWroldApiSrvice";
 
 //1: create a context
 export const AuthContext = createContext();
@@ -11,16 +12,35 @@ const AuthProvider = ({ children }) => {
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [username, setUsername] = useState(null);
 
+  // const login = (username, password) => {
+  //   if (username === "sowmik" && password === "dummy") {
+  //     setAuthenticated(true);
+  //     setUsername(username);
+  //     return true;
+  //   } else {
+  //     setAuthenticated(false);
+  //     setUsername(null);
+  //     return false;
+  //   }
+  // };
+
   const login = (username, password) => {
-    if (username === "sowmik" && password === "dummy") {
-      setAuthenticated(true);
-      setUsername(username);
-      return true;
-    } else {
-      setAuthenticated(false);
-      setUsername(null);
-      return false;
-    }
+    const baToken = "Basic " + window.btoa(username + ":" + password);
+    executeBasicAuthenticationService(baToken)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+
+    setAuthenticated(false);
+
+    // if () {
+    //   setAuthenticated(true);
+    //   setUsername(username);
+    //   return true;
+    // } else {
+    //   setAuthenticated(false);
+    //   setUsername(null);
+    //   return false;
+    // }
   };
 
   const logout = () => {
