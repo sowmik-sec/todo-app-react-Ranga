@@ -24,6 +24,8 @@ const AuthProvider = ({ children }) => {
   //   }
   // };
 
+  //login with authentication
+
   const login = (username, password) => {
     const baToken = "Basic " + window.btoa(username + ":" + password);
     executeBasicAuthenticationService(baToken)
